@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" width="640" height="160" role="img" aria-label="Estudio Web X">
+  <defs>
+    <linearGradient id="amberX" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFD489"/>
+      <stop offset="0.5" stop-color="#E0992F"/>
+      <stop offset="1" stop-color="#C8761F"/>
+    </linearGradient>
+  </defs>
+  <g font-family="'Fraunces','Times New Roman',serif" font-weight="500">
+    <text x="320" y="78" text-anchor="middle" font-size="62" letter-spacing="0.5" fill="currentColor">
+      Estudio Web <tspan fill="url(#amberX)" font-style="italic" font-weight="600">X</tspan>
+    </text>
+    <text x="320" y="115" text-anchor="middle" font-family="'Inter','Helvetica',sans-serif" font-size="11" letter-spacing="7" fill="currentColor" opacity="0.55">
+      DISEÑO  ·  AUTOMATIZACIONES  ·  MANTENIMIENTO
+    </text>
+  </g>
+</svg>
