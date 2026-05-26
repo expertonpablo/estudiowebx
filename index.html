@@ -434,6 +434,28 @@ nav.on-hero.scrolled .lang-btn.active{background:rgba(20,22,28,.07)}
 .lang-switch-m{justify-content:center;margin-top:18px;font-size:13px;gap:6px}
 .lang-switch-m .lang-btn{padding:10px 14px;border:1px solid var(--line);border-radius:10px}
 .lang-switch-m .lang-btn.active{background:var(--ink);color:#fff;border-color:var(--ink);opacity:1}
+/* === optimización móvil + cross-browser (Safari iOS / Chrome / Firefox) === */
+:root{color-scheme:light}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body,.btn,.lang-btn,a,button{-webkit-tap-highlight-color:transparent}
+input,textarea,select{font-size:16px} /* evita auto-zoom de iOS Safari al hacer focus */
+.hero,.hero-inner{min-height:100vh;min-height:100svh}             /* fallback Safari <15.4 */
+.jv-close,.cmp .save{-webkit-backdrop-filter:blur(8px)}
+img,video{max-width:100%;height:auto}
+@media(max-width:980px){.nav-right .lang-switch{display:none}}    /* el menú móvil ya tiene su selector */
+@media(max-width:560px){
+  .pcard{padding:34px 26px}
+  .path{padding:30px 26px}
+  .price-foot{padding:22px 20px;font-size:.97rem}
+  .ai-badge{padding:13px 18px;font-size:.92rem;line-height:1.5}
+  .compare{margin-bottom:44px}
+  .head h2{font-size:clamp(1.85rem,7vw,2.55rem)}
+  .paths-intro{font-size:1.04rem}
+  .price-lead{font-size:1.04rem}
+  .hero-bottom .lead{font-size:1rem;padding:0 4px}
+  .hero-cta{flex-direction:column;width:100%;max-width:340px;margin:0 auto}
+  .hero-cta .btn{justify-content:center}
+}
 </style>
 </head>
 <body class="loading">
@@ -911,6 +933,8 @@ document.querySelectorAll('[data-cursor]').forEach(el=>{el.addEventListener('mou
 function initHeroFx(){
   const cv=document.getElementById('heroFx');
   if(!window.THREE||!cv)return;
+  // en móviles/touch ahorramos batería: dejamos el gradiente CSS de fondo (ya se ve genial)
+  if(matchMedia('(hover:none) and (pointer:coarse)').matches||innerWidth<720){cv.style.display='none';return;}
   try{
     const rnd=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:false});
     rnd.setPixelRatio(Math.min(devicePixelRatio,1.5));
