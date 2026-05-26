@@ -1103,20 +1103,21 @@ const I18N_MAP = [["nav_filosofia", "nav .nav-links a[href=\"#filosofia\"], #mob
 const I18N_PH  = [["ph_nombre", "#nombre"], ["ph_negocio", "#negocio"], ["ph_email", "#email"], ["ph_mensaje", "#mensaje"]];
 function applyKinetic(h){if(!h)return;const ws=h.textContent.trim().split(/\s+/);h.innerHTML=ws.map((w,i)=>`<span class="kw"><span style="transition-delay:${(i*0.045).toFixed(3)}s">${w}</span></span>`).join(' ');h.classList.add('kin');}
 function setLang(lang){
-  const dict=I18N[lang]||I18N.es;
+  const get=k=>I18N[k]?(I18N[k][lang]||I18N[k]['es']):null;
   I18N_MAP.forEach(([key,sel,mode])=>{
-    const els=document.querySelectorAll(sel); if(!els.length||!dict[key])return;
+    const t=get(key); if(!t)return;
+    const els=document.querySelectorAll(sel); if(!els.length)return;
     els.forEach(el=>{
-      if(mode==='h'){el.innerHTML=dict[key];}
+      if(mode==='h'){el.innerHTML=t;}
       else{
         const wasKin=el.classList.contains('kin');
-        el.textContent=dict[key];
-        if(wasKin){applyKinetic(el);if(el.classList.contains('in')){/* already revealed; spans inherit .in */}}
+        el.textContent=t;
+        if(wasKin){applyKinetic(el);}
       }
     });
   });
   // placeholders
-  I18N_PH.forEach(([key,sel])=>{const el=document.querySelector(sel); if(el&&dict[key])el.placeholder=dict[key];});
+  I18N_PH.forEach(([key,sel])=>{const t=get(key); const el=document.querySelector(sel); if(el&&t)el.placeholder=t;});
   document.documentElement.lang=lang;
   try{localStorage.setItem('ewx-lang',lang);}catch(e){}
   document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
